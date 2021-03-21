@@ -1,9 +1,0 @@
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\bin\Debug\netcoreapp3.1\TFNValidate.Services.deps.json
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\bin\Debug\netcoreapp3.1\TFNValidate.Services.dll
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\bin\Debug\netcoreapp3.1\TFNValidate.Services.pdb
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\obj\Debug\netcoreapp3.1\TFNValidate.Services.csprojAssemblyReference.cache
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\obj\Debug\netcoreapp3.1\TFNValidate.Services.AssemblyInfoInputs.cache
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\obj\Debug\netcoreapp3.1\TFNValidate.Services.AssemblyInfo.cs
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\obj\Debug\netcoreapp3.1\TFNValidate.Services.csproj.CoreCompileInputs.cache
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\obj\Debug\netcoreapp3.1\TFNValidate.Services.dll
-C:\Users\Kevin\source\repos\TFNValidate\TFNValidate.Services\obj\Debug\netcoreapp3.1\TFNValidate.Services.pdb

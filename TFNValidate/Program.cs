@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using TFNValidate.API.Services;
 using TFNValidate.Services;
 
 namespace TFNValidate
@@ -14,7 +15,11 @@ namespace TFNValidate
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureServices((_, services) => services.TryAddTransient<ITFNValidator, TFNValidator>())
+                .ConfigureServices((_, services) =>
+                {
+                    services.TryAddTransient<ITFNValidator, TFNValidator>();
+                    services.TryAddTransient<IAttemptService, AttemptService>();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
