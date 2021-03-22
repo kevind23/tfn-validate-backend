@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
-using TFNValidate.API.Models;
+using TFNValidate.Persistence.Models;
 
 namespace TFNValidate
 {

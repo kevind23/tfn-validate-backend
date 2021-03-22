@@ -3,18 +3,18 @@ using System.Linq;
 
 namespace TFNValidate.Services
 {
-    public class LinkedNumberChecker
+    public class LinkedNumberChecker : ILinkedNumberChecker
     {
-        public static bool AreLinkedNumbersOverThreshold(int firstNumber, int[] otherNumbers, int maxLinkedCount)
+        public bool AreLinkedNumbersOverThreshold(int currentNumber, int[] previousNumbers, int maxLinkedCount)
         {
             var linkedCount = 0;
-            var linkedDigitGroups = GetDigitGroupsFor(firstNumber);
+            var linkedDigitGroups = GetDigitGroupsFor(currentNumber);
             var foundNewLinkedValue = false;
-            var unlinkedNumbers = new List<int>(otherNumbers);
+            var unlinkedNumbers = new List<int>(previousNumbers);
             do
             {
                 foundNewLinkedValue = false;
-                var numbersToCheck = unlinkedNumbers.ToArray();
+                var numbersToCheck = unlinkedNumbers.ToList();
                 foreach (var numberToCheck in numbersToCheck)
                 {
                     var digitGroups = GetDigitGroupsFor(numberToCheck);
@@ -35,7 +35,7 @@ namespace TFNValidate.Services
             return false;
         }
 
-        private static HashSet<string> GetDigitGroupsFor(int number)
+        private HashSet<string> GetDigitGroupsFor(int number)
         {
             var stringValue = number.ToString();
             var digitGroups = new HashSet<string>();

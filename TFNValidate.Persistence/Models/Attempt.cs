@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TFNValidate.API.Models
+namespace TFNValidate.Persistence.Models
 {
     public class Attempt
     {

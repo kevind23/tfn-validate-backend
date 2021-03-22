@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using TFNValidate.API.Models;
-using TFNValidate.API.Services;
+using TFNValidate.Persistence.Models;
 using TFNValidate.Services;
 
 namespace TFNValidate.Controllers
@@ -11,28 +9,24 @@ namespace TFNValidate.Controllers
     [Route("[controller]")]
     public class ValidateController : ControllerBase
     {
-        private readonly ILogger<ValidateController> _logger;
         private readonly ITFNValidator _validator;
-        private readonly IAttemptService _attemptService;
+        private readonly IRateLimiter _rateLimiter;
 
-        public ValidateController(ILogger<ValidateController> logger, ITFNValidator validator, IAttemptService attemptService)
+        public ValidateController(ITFNValidator validator, IRateLimiter rateLimiter)
         {
-            _logger = logger;
             _validator = validator;
-            _attemptService = attemptService;
+            _rateLimiter = rateLimiter;
         }
 
         [HttpGet("{taxFileNumber}")]
         public async Task<ResultDTO> GetIsValidAsync(int taxFileNumber)
         {
-            await this._attemptService.ClearOldAttempts();
-            await this._attemptService.SaveThisAttempt(taxFileNumber);
-            var exceedsLinkedThreshold = this._attemptService.AreLinkedAttemptsOverThreshold(taxFileNumber, 3);
-            if (exceedsLinkedThreshold)
+            var isOverRateLimit = await _rateLimiter.ShouldDenyRequest(taxFileNumber, 3, 30);
+            if (isOverRateLimit)
             {
                 return new ResultDTO("Too many similar requests, please try again later.");
             }
-            var isValid = this._validator.Validate(taxFileNumber);
+            var isValid = _validator.Validate(taxFileNumber);
             return new ResultDTO(isValid);
         }
     }

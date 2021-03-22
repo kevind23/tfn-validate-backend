@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-namespace TFNValidate.API.Models
+namespace TFNValidate.Persistence.Models
 {
     public class AttemptContext : DbContext
     {

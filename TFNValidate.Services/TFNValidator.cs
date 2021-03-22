@@ -6,14 +6,14 @@ namespace TFNValidate.Services
     {
         public bool Validate(int taxFileNumber)
         {
-            var digits = this.GetDigitsFrom(taxFileNumber);
+            var digits = GetDigitsFrom(taxFileNumber);
             if (digits.Length == 9)
             {
-                return this.IsNineDigitTfnValid(digits);
+                return IsNineDigitTfnValid(digits);
             }
             if (digits.Length == 8)
             {
-                return this.IsEightDigitTfnValid(digits);
+                return IsEightDigitTfnValid(digits);
             }
             return false;
         }
@@ -26,7 +26,7 @@ namespace TFNValidate.Services
         private bool IsNineDigitTfnValid(int[] digits)
         {
             int[] weights = { 10, 7, 8, 4, 6, 3, 5, 2, 1 };
-            int weightedSum = this.GetWeightedSum(digits, weights);
+            int weightedSum = GetWeightedSum(digits, weights);
             return weightedSum % 11 == 0;
         }
 
@@ -38,7 +38,7 @@ namespace TFNValidate.Services
         private bool IsEightDigitTfnValid(int[] digits)
         {
             int[] weights = { 10, 7, 8, 4, 6, 3, 5, 1 };
-            int weightedSum = this.GetWeightedSum(digits, weights);
+            int weightedSum = GetWeightedSum(digits, weights);
             return weightedSum % 11 == 0;
         }
     }
