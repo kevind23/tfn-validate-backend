@@ -13,15 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TFNValidate.Services", "TFN
 		{68C98AF6-AABF-4889-9DE8-E08DACCFED62} = {68C98AF6-AABF-4889-9DE8-E08DACCFED62}
 	EndProjectSection
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "TFNValidate.UI", "..\..\..\Documents\Git\tfn-validate\TFNValidate.UI.njsproj", "{AC1B189B-58F4-4940-957E-AF01DE357B64}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TFNValidate.Persistence", "TFNValidate.Persistence\TFNValidate.Persistence.csproj", "{68C98AF6-AABF-4889-9DE8-E08DACCFED62}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TFNValidate.Persistence.Tests", "TFNValidate.Persistence.Tests\TFNValidate.Persistence.Tests.csproj", "{94D81CF5-15D8-4DA2-A446-694B3BC8A4DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFNValidate.Services.Tests", "TFNValidate.Services.Tests\TFNValidate.Services.Tests.csproj", "{0E33F6BC-A2F1-4292-8CD6-B8AB1AC10183}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TFNValidate.Services.Tests", "TFNValidate.Services.Tests\TFNValidate.Services.Tests.csproj", "{0E33F6BC-A2F1-4292-8CD6-B8AB1AC10183}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFNValidate.API.Tests", "TFNValidate.API.Tests\TFNValidate.API.Tests.csproj", "{23FE1982-A0BC-4B51-A55D-A436E30DD804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TFNValidate.API.Tests", "TFNValidate.API.Tests\TFNValidate.API.Tests.csproj", "{23FE1982-A0BC-4B51-A55D-A436E30DD804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,8 +35,6 @@ Global
 		{0BE5C4F2-57BF-41A2-9D05-90C7A33CCF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BE5C4F2-57BF-41A2-9D05-90C7A33CCF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BE5C4F2-57BF-41A2-9D05-90C7A33CCF7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC1B189B-58F4-4940-957E-AF01DE357B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC1B189B-58F4-4940-957E-AF01DE357B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68C98AF6-AABF-4889-9DE8-E08DACCFED62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{68C98AF6-AABF-4889-9DE8-E08DACCFED62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68C98AF6-AABF-4889-9DE8-E08DACCFED62}.Release|Any CPU.ActiveCfg = Release|Any CPU
