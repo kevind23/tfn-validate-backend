@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TFNValidate.Persistence;
 
-namespace TFNValidate.Services
+namespace TFNValidate.Services.Implementation
 {
     public class RateLimiter : IRateLimiter
     {
@@ -14,9 +14,9 @@ namespace TFNValidate.Services
             _linkedNumberChecker = linkedNumberChecker;
         }
 
-        public async Task<bool> ShouldDenyRequest(int requestedTaxFileNumber, int maxAttempts, int timeToCheck)
+        public async Task<bool> ShouldDenyRequest(int requestedTaxFileNumber, int maxAttempts, int maxTimeMilliseconds)
         {
-            await _repository.ClearOldAttempts(timeToCheck);
+            await _repository.ClearOldAttempts(maxTimeMilliseconds);
             var previousAttempts = _repository.GetAttempts();
             await _repository.SaveThisAttempt(requestedTaxFileNumber);
             return _linkedNumberChecker.AreLinkedNumbersOverThreshold(requestedTaxFileNumber, previousAttempts, maxAttempts);

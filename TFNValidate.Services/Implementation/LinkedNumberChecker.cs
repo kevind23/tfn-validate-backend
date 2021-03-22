@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TFNValidate.Services
+namespace TFNValidate.Services.Implementation
 {
     public class LinkedNumberChecker : ILinkedNumberChecker
     {
         public bool AreLinkedNumbersOverThreshold(int currentNumber, int[] previousNumbers, int maxLinkedCount)
         {
-            var linkedCount = 0;
+            var linkedCount = 1;
             var linkedDigitGroups = GetDigitGroupsFor(currentNumber);
             var foundNewLinkedValue = false;
             var unlinkedNumbers = new List<int>(previousNumbers);

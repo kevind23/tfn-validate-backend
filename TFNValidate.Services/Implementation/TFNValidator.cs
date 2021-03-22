@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace TFNValidate.Services
+namespace TFNValidate.Services.Implementation
 {
     public class TFNValidator : ITFNValidator
     {

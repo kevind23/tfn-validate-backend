@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TFNValidate.Persistence.Models;
+using TFNValidate.API.Models;
 using TFNValidate.Services;
 
 namespace TFNValidate.Controllers
@@ -21,7 +21,9 @@ namespace TFNValidate.Controllers
         [HttpGet("{taxFileNumber}")]
         public async Task<ResultDTO> GetIsValidAsync(int taxFileNumber)
         {
-            var isOverRateLimit = await _rateLimiter.ShouldDenyRequest(taxFileNumber, 3, 30);
+            var maxAgeMilliseconds = 30 * 1000;
+            var maxLinkedRequests = 3;
+            var isOverRateLimit = await _rateLimiter.ShouldDenyRequest(taxFileNumber, maxLinkedRequests, maxAgeMilliseconds);
             if (isOverRateLimit)
             {
                 return new ResultDTO("Too many similar requests, please try again later.");

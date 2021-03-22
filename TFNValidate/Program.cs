@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using TFNValidate.Persistence;
+using TFNValidate.Persistence.Implementation;
 using TFNValidate.Services;
+using TFNValidate.Services.Implementation;
 
 namespace TFNValidate
 {

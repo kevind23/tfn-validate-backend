@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TFNValidate.Persistence.Models;
 
-namespace TFNValidate.Persistence
+namespace TFNValidate.Persistence.Implementation
 {
     public class AttemptRepository : IAttemptRepository
     {
@@ -14,10 +14,10 @@ namespace TFNValidate.Persistence
             _context = context;
         }
 
-        public async Task ClearOldAttempts(int maximumAgeSeconds)
+        public async Task ClearOldAttempts(int maximumAgeMilliseconds)
         {
             var oldAttemptsToRemove = _context.Attempts
-                .Where(Attempt => (DateTime.Now - Attempt.AttemptTime).TotalSeconds > maximumAgeSeconds)
+                .Where(Attempt => (DateTime.Now - Attempt.AttemptTime).TotalMilliseconds > maximumAgeMilliseconds)
                 .ToArray();
             _context.RemoveRange(oldAttemptsToRemove);
             await _context.SaveChangesAsync();
