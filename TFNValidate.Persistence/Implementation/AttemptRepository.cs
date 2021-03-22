@@ -30,7 +30,7 @@ namespace TFNValidate.Persistence.Implementation
 
         public async Task SaveThisAttempt(int taxFileNumber)
         {
-            Attempt attempt = new Attempt
+            var attempt = new Attempt
             {
                 TaxFileNumber = taxFileNumber,
                 AttemptTime = DateTime.Now

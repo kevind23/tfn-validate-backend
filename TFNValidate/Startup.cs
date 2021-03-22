@@ -26,7 +26,8 @@ namespace TFNValidate
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000", "https://localhost:3000").WithHeaders(HeaderNames.ContentType);
+                    builder.WithOrigins("http://localhost:3000", "https://localhost:3000")
+                        .WithHeaders(HeaderNames.ContentType);
                 });
             });
             services.AddControllers();
@@ -35,10 +36,7 @@ namespace TFNValidate
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
@@ -48,10 +46,7 @@ namespace TFNValidate
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

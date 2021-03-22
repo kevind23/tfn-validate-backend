@@ -15,8 +15,9 @@ namespace TFNValidate
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) =>
                 {
                     services.TryAddTransient<ITFNValidator, TFNValidator>();
@@ -24,9 +25,7 @@ namespace TFNValidate
                     services.TryAddTransient<ILinkedNumberChecker, LinkedNumberChecker>();
                     services.TryAddTransient<IAttemptRepository, AttemptRepository>();
                 })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        }
     }
 }

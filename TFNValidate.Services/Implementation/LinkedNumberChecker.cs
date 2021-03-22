@@ -23,15 +23,13 @@ namespace TFNValidate.Services.Implementation
                     {
                         foundNewLinkedValue = true;
                         linkedCount++;
-                        if (linkedCount == maxLinkedCount)
-                        {
-                            return true;
-                        }
+                        if (linkedCount == maxLinkedCount) return true;
                         unlinkedNumbers.Remove(numberToCheck);
                         linkedDigitGroups.UnionWith(digitGroups);
                     }
                 }
             } while (foundNewLinkedValue && unlinkedNumbers.Count > 0);
+
             return false;
         }
 
@@ -39,10 +37,7 @@ namespace TFNValidate.Services.Implementation
         {
             var stringValue = number.ToString();
             var digitGroups = new HashSet<string>();
-            for (var i = 0; i < stringValue.Length - 4; i++)
-            {
-                digitGroups.Add(stringValue.Substring(i, 4));
-            }
+            for (var i = 0; i < stringValue.Length - 4; i++) digitGroups.Add(stringValue.Substring(i, 4));
             return digitGroups;
         }
     }

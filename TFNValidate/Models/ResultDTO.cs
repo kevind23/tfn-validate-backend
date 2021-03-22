@@ -2,9 +2,6 @@
 {
     public class ResultDTO
     {
-        public bool result { get; private set; }
-        public string error { get; private set; }
-
         public ResultDTO(bool result)
         {
             this.result = result;
@@ -14,5 +11,8 @@
         {
             this.error = error;
         }
+
+        public bool result { get; }
+        public string error { get; }
     }
 }

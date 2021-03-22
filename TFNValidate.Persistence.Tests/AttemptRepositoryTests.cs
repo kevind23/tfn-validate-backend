@@ -1,9 +1,9 @@
-using NUnit.Framework;
-using TFNValidate.Persistence.Models;
-using Microsoft.EntityFrameworkCore;
-using TFNValidate.Persistence.Implementation;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+using TFNValidate.Persistence.Implementation;
+using TFNValidate.Persistence.Models;
 
 namespace TFNValidate.Persistence.Tests
 {
@@ -16,7 +16,7 @@ namespace TFNValidate.Persistence.Tests
             {
                 var repository = new AttemptRepository(context);
                 var taxFileNumber = 12345678;
-                DateTime insertTime = DateTime.Now;
+                var insertTime = DateTime.Now;
                 await repository.SaveThisAttempt(taxFileNumber);
                 var attempts = await context.Attempts.ToListAsync();
                 Assert.AreEqual(1, attempts.Count);
@@ -56,7 +56,7 @@ namespace TFNValidate.Persistence.Tests
                 var repository = new AttemptRepository(context);
                 var taxFileNumber1 = 12345678;
                 await repository.SaveThisAttempt(taxFileNumber1);
-                int delayTimeMs = 500;
+                var delayTimeMs = 500;
                 await Task.Delay(delayTimeMs);
                 var taxFileNumber2 = 123456789;
                 await repository.SaveThisAttempt(taxFileNumber2);

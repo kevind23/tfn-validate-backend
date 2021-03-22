@@ -5,8 +5,8 @@ namespace TFNValidate.Services.Implementation
 {
     public class RateLimiter : IRateLimiter
     {
-        private readonly IAttemptRepository _repository;
         private readonly ILinkedNumberChecker _linkedNumberChecker;
+        private readonly IAttemptRepository _repository;
 
         public RateLimiter(IAttemptRepository repository, ILinkedNumberChecker linkedNumberChecker)
         {
@@ -19,7 +19,8 @@ namespace TFNValidate.Services.Implementation
             await _repository.ClearOldAttempts(maxTimeMilliseconds);
             var previousAttempts = _repository.GetAttempts();
             await _repository.SaveThisAttempt(requestedTaxFileNumber);
-            return _linkedNumberChecker.AreLinkedNumbersOverThreshold(requestedTaxFileNumber, previousAttempts, maxAttempts);
+            return _linkedNumberChecker.AreLinkedNumbersOverThreshold(requestedTaxFileNumber, previousAttempts,
+                maxAttempts);
         }
     }
 }

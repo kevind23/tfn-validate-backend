@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using TFNValidate.API.Models;
 using TFNValidate.Services;
 
@@ -9,8 +9,8 @@ namespace TFNValidate.Controllers
     [Route("[controller]")]
     public class ValidateController : ControllerBase
     {
-        private readonly ITFNValidator _validator;
         private readonly IRateLimiter _rateLimiter;
+        private readonly ITFNValidator _validator;
 
         public ValidateController(ITFNValidator validator, IRateLimiter rateLimiter)
         {
@@ -23,11 +23,9 @@ namespace TFNValidate.Controllers
         {
             var maxAgeMilliseconds = 30 * 1000;
             var maxLinkedRequests = 3;
-            var isOverRateLimit = await _rateLimiter.ShouldDenyRequest(taxFileNumber, maxLinkedRequests, maxAgeMilliseconds);
-            if (isOverRateLimit)
-            {
-                return new ResultDTO("Too many similar requests, please try again later.");
-            }
+            var isOverRateLimit =
+                await _rateLimiter.ShouldDenyRequest(taxFileNumber, maxLinkedRequests, maxAgeMilliseconds);
+            if (isOverRateLimit) return new ResultDTO("Too many similar requests, please try again later.");
             var isValid = _validator.Validate(taxFileNumber);
             return new ResultDTO(isValid);
         }

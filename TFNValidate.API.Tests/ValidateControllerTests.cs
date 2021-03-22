@@ -1,6 +1,6 @@
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using System.Threading.Tasks;
 using TFNValidate.Controllers;
 using TFNValidate.Services;
 
@@ -15,12 +15,14 @@ namespace TFNValidate.API.Tests
             var expectedMaxLinkedRequests = 3;
             var expectedMaxAgeMilliseconds = 30000;
             var isValid = true;
-            
+
             var mockValidator = new Mock<ITFNValidator>();
             mockValidator.Setup(p => p.Validate(taxFileNumber)).Returns(isValid);
 
             var mockRateLimiter = new Mock<IRateLimiter>();
-            mockRateLimiter.Setup(p => p.ShouldDenyRequest(taxFileNumber, expectedMaxLinkedRequests, expectedMaxAgeMilliseconds)).ReturnsAsync(false);
+            mockRateLimiter
+                .Setup(p => p.ShouldDenyRequest(taxFileNumber, expectedMaxLinkedRequests, expectedMaxAgeMilliseconds))
+                .ReturnsAsync(false);
 
             var controller = new ValidateController(mockValidator.Object, mockRateLimiter.Object);
 
@@ -39,7 +41,9 @@ namespace TFNValidate.API.Tests
             var expectedMaxAgeMilliseconds = 30000;
 
             var mockRateLimiter = new Mock<IRateLimiter>();
-            mockRateLimiter.Setup(p => p.ShouldDenyRequest(taxFileNumber, expectedMaxLinkedRequests, expectedMaxAgeMilliseconds)).ReturnsAsync(true);
+            mockRateLimiter
+                .Setup(p => p.ShouldDenyRequest(taxFileNumber, expectedMaxLinkedRequests, expectedMaxAgeMilliseconds))
+                .ReturnsAsync(true);
 
             var mockValidator = new Mock<ITFNValidator>();
 
