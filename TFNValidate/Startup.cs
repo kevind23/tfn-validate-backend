@@ -26,8 +26,7 @@ namespace TFNValidate
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000", "https://localhost:3000")
-                        .WithHeaders(HeaderNames.ContentType);
+                    builder.AllowAnyOrigin().WithHeaders(HeaderNames.ContentType);
                 });
             });
             services.AddControllers();
