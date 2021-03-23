@@ -5,30 +5,23 @@ namespace TFNValidate.Services.Implementation
 {
     public class LinkedNumberChecker : ILinkedNumberChecker
     {
-        public bool AreLinkedNumbersOverThreshold(int currentNumber, int[] previousNumbers, int maxLinkedCount)
+        public bool AreLinkedNumbersOverThreshold(int[] numbers, int maxLinkedCount)
         {
+            var seenDigitGroups = new HashSet<string>();
             var linkedCount = 1;
-            var linkedDigitGroups = GetDigitGroupsFor(currentNumber);
-            var foundNewLinkedValue = false;
-            var unlinkedNumbers = new List<int>(previousNumbers);
-            do
+            foreach (var number in numbers)
             {
-                foundNewLinkedValue = false;
-                var numbersToCheck = unlinkedNumbers.ToList();
-                foreach (var numberToCheck in numbersToCheck)
+                var digitGroups = GetDigitGroupsFor(number);
+                var isLinked = digitGroups.Any(digitGroup => seenDigitGroups.Contains(digitGroup));
+                if (isLinked)
                 {
-                    var digitGroups = GetDigitGroupsFor(numberToCheck);
-                    var isLinked = digitGroups.Any(digitGroup => linkedDigitGroups.Contains(digitGroup));
-                    if (isLinked)
+                    if (++linkedCount > maxLinkedCount)
                     {
-                        foundNewLinkedValue = true;
-                        linkedCount++;
-                        if (linkedCount == maxLinkedCount) return true;
-                        unlinkedNumbers.Remove(numberToCheck);
-                        linkedDigitGroups.UnionWith(digitGroups);
+                        return true;
                     }
                 }
-            } while (foundNewLinkedValue && unlinkedNumbers.Count > 0);
+                seenDigitGroups.UnionWith(digitGroups);
+            }
 
             return false;
         }

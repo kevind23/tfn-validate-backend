@@ -12,7 +12,7 @@ namespace TFNValidate.API.Tests
         public async Task TestGetIsValidAsync_NotOverRateLimit_ReturnsValue()
         {
             var taxFileNumber = 12345;
-            var expectedMaxLinkedRequests = 3;
+            var expectedMaxLinkedRequests = 2;
             var expectedMaxAgeMilliseconds = 30000;
             var isValid = true;
 
@@ -37,7 +37,7 @@ namespace TFNValidate.API.Tests
         public async Task TestGetIsValidAsync_IsOverRateLimit_ReturnsError()
         {
             var taxFileNumber = 12345;
-            var expectedMaxLinkedRequests = 3;
+            var expectedMaxLinkedRequests = 2;
             var expectedMaxAgeMilliseconds = 30000;
 
             var mockRateLimiter = new Mock<IRateLimiter>();

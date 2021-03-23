@@ -2,6 +2,6 @@
 {
     public interface ILinkedNumberChecker
     {
-        public bool AreLinkedNumbersOverThreshold(int firstNumber, int[] otherNumbers, int maxLinkedCount);
+        public bool AreLinkedNumbersOverThreshold(int[] numbers, int maxLinkedCount);
     }
 }

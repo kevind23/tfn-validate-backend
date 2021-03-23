@@ -6,16 +6,17 @@ namespace TFNValidate.Services.Tests
     [TestFixture]
     public class LinkedNumberCheckerTests
     {
-        [TestCase(123456789, new int[] { }, 3, false)]
-        [TestCase(123456789, new[] {123456789, 123456789}, 3, true)]
-        [TestCase(123456789, new[] {12349999, 56781111}, 3, true)]
-        [TestCase(123456789, new[] {12349999, 22221111}, 3, false)]
-        [TestCase(123456789, new[] {123459876, 443459871}, 3, true)]
-        public void TestAreLinkedNumbersOverThreshold(int currentNumber, int[] previousNumbers, int maxLinkedCount,
+        [TestCase(new int[] { 123456789 }, 2, false)]
+        [TestCase(new int[] { 123456789, 123456789 }, 2, false)]
+        [TestCase(new[] { 123456789, 123456789, 123456789 }, 2, true)]
+        [TestCase(new[] { 123456789, 12349999, 56781111 }, 2, true)]
+        [TestCase(new[] { 123456789, 12349999, 22221111 }, 2, false)]
+        [TestCase(new[] { 123456789, 123459876, 443459871 }, 2, true)]
+        public void TestAreLinkedNumbersOverThreshold(int[] numbers, int maxLinkedCount,
             bool isOverThreshold)
         {
             var checker = new LinkedNumberChecker();
-            Assert.That(checker.AreLinkedNumbersOverThreshold(currentNumber, previousNumbers, maxLinkedCount),
+            Assert.That(checker.AreLinkedNumbersOverThreshold(numbers, maxLinkedCount),
                 Is.EqualTo(isOverThreshold));
         }
     }

@@ -4,6 +4,6 @@ namespace TFNValidate.Services
 {
     public interface IRateLimiter
     {
-        public Task<bool> ShouldDenyRequest(int requestedTaxFileNumber, int maxAttempts, int timeToCheck);
+        public Task<bool> ShouldDenyRequest(int requestedTaxFileNumber, int maxAttempts, int maxTimeMilliseconds);
     }
 }

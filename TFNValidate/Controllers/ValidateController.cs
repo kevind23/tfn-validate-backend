@@ -22,7 +22,7 @@ namespace TFNValidate.Controllers
         public async Task<ResultDTO> GetIsValidAsync(int taxFileNumber)
         {
             var maxAgeMilliseconds = 30 * 1000;
-            var maxLinkedRequests = 3;
+            var maxLinkedRequests = 2;
             var isOverRateLimit =
                 await _rateLimiter.ShouldDenyRequest(taxFileNumber, maxLinkedRequests, maxAgeMilliseconds);
             if (isOverRateLimit) return new ResultDTO("Too many similar requests, please try again later.");

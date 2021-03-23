@@ -23,7 +23,7 @@ namespace TFNValidate.Services.Tests
 
                 var mockChecker = new Mock<ILinkedNumberChecker>();
                 var expectedOutput = true;
-                mockChecker.Setup(p => p.AreLinkedNumbersOverThreshold(taxFileNumber, attempts, maxAttempts))
+                mockChecker.Setup(p => p.AreLinkedNumbersOverThreshold(attempts, maxAttempts))
                     .Returns(expectedOutput);
 
                 var rateLimiter = new RateLimiter(mockRepository.Object, mockChecker.Object);

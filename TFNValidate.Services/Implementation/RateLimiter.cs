@@ -17,10 +17,9 @@ namespace TFNValidate.Services.Implementation
         public async Task<bool> ShouldDenyRequest(int requestedTaxFileNumber, int maxAttempts, int maxTimeMilliseconds)
         {
             await _repository.ClearOldAttempts(maxTimeMilliseconds);
-            var previousAttempts = _repository.GetAttempts();
             await _repository.SaveThisAttempt(requestedTaxFileNumber);
-            return _linkedNumberChecker.AreLinkedNumbersOverThreshold(requestedTaxFileNumber, previousAttempts,
-                maxAttempts);
+            var attempts = _repository.GetAttempts();
+            return _linkedNumberChecker.AreLinkedNumbersOverThreshold(attempts, maxAttempts);
         }
     }
 }
