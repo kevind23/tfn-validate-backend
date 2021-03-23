@@ -3,11 +3,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
+using TFNValidate.Persistence;
+using TFNValidate.Persistence.Implementation;
 using TFNValidate.Persistence.Models;
+using TFNValidate.Services;
+using TFNValidate.Services.Implementation;
 
-namespace TFNValidate
+namespace TFNValidate.API
 {
     public class Startup
     {
@@ -21,6 +26,10 @@ namespace TFNValidate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddTransient<ITFNValidator, TFNValidator>();
+            services.TryAddTransient<IRateLimiter, RateLimiter>();
+            services.TryAddTransient<ILinkedNumberChecker, LinkedNumberChecker>();
+            services.TryAddTransient<IAttemptRepository, AttemptRepository>();
             services.AddDbContext<AttemptContext>(opt => opt.UseInMemoryDatabase("AttemptStore"));
             services.AddCors(options =>
             {
