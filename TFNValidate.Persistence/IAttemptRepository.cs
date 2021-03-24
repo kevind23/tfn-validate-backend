@@ -5,7 +5,7 @@ namespace TFNValidate.Persistence
     public interface IAttemptRepository
     {
         public Task ClearOldAttempts(int maximumAgeMilliseconds);
-        public int[] GetAttempts();
-        public Task SaveThisAttempt(int taxFileNumber);
+        public string[] GetAttemptsFor(string clientIpAddress);
+        public Task SaveThisAttempt(string taxFileNumber, string clientIpAddress);
     }
 }

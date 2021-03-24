@@ -1,59 +1,28 @@
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
-using TFNValidate.Controllers;
+using TFNValidate.API.Controllers;
+using TFNValidate.API.Models;
 using TFNValidate.Services;
 
 namespace TFNValidate.API.Tests
 {
+    [TestFixture]
     public class ValidateControllerTests
     {
-        [Test]
-        public async Task TestGetIsValidAsync_NotOverRateLimit_ReturnsValue()
+        [TestCase(true, true, null)]
+        [TestCase(false, false, null)]
+        public void TestGetIsValid(bool validatorResult, bool expectedResult, string expectedError)
         {
-            var taxFileNumber = 12345;
-            var expectedMaxLinkedRequests = 2;
-            var expectedMaxAgeMilliseconds = 30000;
-            var isValid = true;
+            var taxFileNumber = "1234";
+            var validatorMock = new Mock<ITfnValidator>();
+            validatorMock.Setup(p => p.Validate(taxFileNumber)).Returns(validatorResult);
 
-            var mockValidator = new Mock<ITFNValidator>();
-            mockValidator.Setup(p => p.Validate(taxFileNumber)).Returns(isValid);
-
-            var mockRateLimiter = new Mock<IRateLimiter>();
-            mockRateLimiter
-                .Setup(p => p.ShouldDenyRequest(taxFileNumber, expectedMaxLinkedRequests, expectedMaxAgeMilliseconds))
-                .ReturnsAsync(false);
-
-            var controller = new ValidateController(mockValidator.Object, mockRateLimiter.Object);
-
-            var result = await controller.GetIsValidAsync(taxFileNumber);
-            Assert.That(result.result, Is.EqualTo(isValid));
-            Assert.That(result.error, Is.Null);
-            mockValidator.VerifyAll();
-            mockRateLimiter.VerifyAll();
-        }
-
-        [Test]
-        public async Task TestGetIsValidAsync_IsOverRateLimit_ReturnsError()
-        {
-            var taxFileNumber = 12345;
-            var expectedMaxLinkedRequests = 2;
-            var expectedMaxAgeMilliseconds = 30000;
-
-            var mockRateLimiter = new Mock<IRateLimiter>();
-            mockRateLimiter
-                .Setup(p => p.ShouldDenyRequest(taxFileNumber, expectedMaxLinkedRequests, expectedMaxAgeMilliseconds))
-                .ReturnsAsync(true);
-
-            var mockValidator = new Mock<ITFNValidator>();
-
-            var controller = new ValidateController(mockValidator.Object, mockRateLimiter.Object);
-
-            var result = await controller.GetIsValidAsync(taxFileNumber);
-            Assert.That(result.result, Is.EqualTo(false));
-            Assert.That(result.error, Is.EqualTo("Too many similar requests, please try again later."));
-            mockValidator.VerifyAll();
-            mockRateLimiter.VerifyAll();
+            var controller = new ValidateController(validatorMock.Object);
+            var result = controller.GetIsValid(taxFileNumber);
+            
+            Assert.AreEqual(expectedResult, result.result);
+            Assert.AreEqual(expectedError, result.error);
+            validatorMock.VerifyAll();
         }
     }
 }

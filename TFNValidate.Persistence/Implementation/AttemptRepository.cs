@@ -16,24 +16,26 @@ namespace TFNValidate.Persistence.Implementation
 
         public async Task ClearOldAttempts(int maximumAgeMilliseconds)
         {
-            var oldAttemptsToRemove = _context.Attempts
-                .Where(Attempt => (DateTime.Now - Attempt.AttemptTime).TotalMilliseconds > maximumAgeMilliseconds)
+            object[] oldAttemptsToRemove = _context.Attempts
+                .Where(attempt => (DateTime.Now - attempt.AttemptTime).TotalMilliseconds > maximumAgeMilliseconds)
                 .ToArray();
             _context.RemoveRange(oldAttemptsToRemove);
             await _context.SaveChangesAsync();
         }
 
-        public int[] GetAttempts()
+        public string[] GetAttemptsFor(string clientIpAddress)
         {
-            return _context.Attempts.Select(Attempt => Attempt.TaxFileNumber).ToArray();
+            return _context.Attempts.Where(attempt => attempt.ClientIpAddress == clientIpAddress)
+                .Select(attempt => attempt.TaxFileNumber).ToArray();
         }
 
-        public async Task SaveThisAttempt(int taxFileNumber)
+        public async Task SaveThisAttempt(string taxFileNumber, string clientIpAddress)
         {
             var attempt = new Attempt
             {
                 TaxFileNumber = taxFileNumber,
-                AttemptTime = DateTime.Now
+                AttemptTime = DateTime.Now,
+                ClientIpAddress = clientIpAddress
             };
             _context.Add(attempt);
             await _context.SaveChangesAsync();

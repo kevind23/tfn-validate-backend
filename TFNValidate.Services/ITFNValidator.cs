@@ -1,7 +1,7 @@
 ﻿namespace TFNValidate.Services
 {
-    public interface ITFNValidator
+    public interface ITfnValidator
     {
-        bool Validate(int taxFileNumber);
+        bool Validate(string taxFileNumber);
     }
 }
